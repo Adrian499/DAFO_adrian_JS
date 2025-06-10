@@ -1,0 +1,46 @@
+body {
+  font-family: Arial, sans-serif;
+  padding: 20px;
+  background-color: moccasin;
+}
+
+select,
+input,
+button {
+  margin: 5px;
+}
+
+table {
+  border-collapse: collapse;
+  width: 100%;
+  margin-top: 20px;
+}
+
+th,
+td {
+  border: 1px solid #ccc;
+  padding: 8px;
+  text-align: center;
+  background-color: white;
+}
+
+th {
+  background-color: #f0f0f0;
+}
+
+.total {
+  margin-top: 20px;
+  font-weight: bold;
+}
+
+#flecha {
+  width: 100px;
+}
+
+.total {
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  text-align: center;
+  margin: auto;
+  width: 300px;
+}

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Registro de Horas</title>
+    <link rel="stylesheet" href="/css/horarios.css" />
+  </head>
+  <body>
+    <a href="/dafo.html"
+      ><img id="flecha" src="/img/image.png" alt="flecha de vuelta"
+    /></a>
+    <h1>⏰​ Registro de Horas</h1>
+    <br />
+
+    <label>Empleado:</label>
+    <input type="text" id="empleadoInput" placeholder="Nombre del empleado" />
+
+    <label>Entrada:</label>
+    <input type="time" id="entrada" />
+    <label>Salida:</label>
+    <input type="time" id="salida" />
+    <button onclick="registrarHoras()">Registrar</button>
+
+    <table id="registroTabla">
+      <thead>
+        <tr>
+          <th>Empleado</th>
+          <th>Entrada</th>
+          <th>Salida</th>
+          <th>Horas Trabajadas</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+
+    <div class="total" id="totales"></div>
+
+    <script>
+      const registros = [];
+
+      function calcularDiferenciaHoras(horaInicio, horaFin) {
+        const [h1, m1] = horaInicio.split(":").map(Number);
+        const [h2, m2] = horaFin.split(":").map(Number);
+        const minutosInicio = h1 * 60 + m1;
+        const minutosFin = h2 * 60 + m2;
+        let totalMin = minutosFin - minutosInicio;
+        if (totalMin < 0) totalMin += 24 * 60;
+        return Math.floor(totalMin / 60);
+      }
+
+      function registrarHoras() {
+        const usuario = document.getElementById("empleadoInput").value.trim();
+        const entrada = document.getElementById("entrada").value;
+        const salida = document.getElementById("salida").value;
+
+        if (!usuario) {
+          alert("Por favor escribe el nombre del empleado.");
+          return;
+        }
+
+        if (!entrada || !salida) {
+          alert("Por favor completa la hora de entrada y salida.");
+          return;
+        }
+
+        const horasTrabajadas = calcularDiferenciaHoras(entrada, salida);
+        registros.push({ usuario, entrada, salida, horasTrabajadas });
+
+        document.getElementById("empleadoInput").value = "";
+        document.getElementById("entrada").value = "";
+        document.getElementById("salida").value = "";
+
+        actualizarTabla();
+        actualizarTotales();
+      }
+
+      function actualizarTabla() {
+        const tbody = document.querySelector("#registroTabla tbody");
+        tbody.innerHTML = "";
+
+        registros.forEach((reg) => {
+          const fila = document.createElement("tr");
+          fila.innerHTML = `
+          <td>${reg.usuario}</td>
+          <td>${reg.entrada}</td>
+          <td>${reg.salida}</td>
+          <td>${reg.horasTrabajadas}</td>
+        `;
+          tbody.appendChild(fila);
+        });
+      }
+
+      function actualizarTotales() {
+        const totales = {};
+        registros.forEach((reg) => {
+          if (!totales[reg.usuario]) totales[reg.usuario] = 0;
+          totales[reg.usuario] += reg.horasTrabajadas;
+        });
+
+        const contenedor = document.getElementById("totales");
+        contenedor.innerHTML = "<h3>Total por Empleado</h3>";
+        for (let usuario in totales) {
+          contenedor.innerHTML += `<p>${usuario}: ${totales[usuario]} horas</p>`;
+        }
+      }
+    </script>
+  </body>
+</html>

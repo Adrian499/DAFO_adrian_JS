@@ -1,0 +1,40 @@
+body {
+  font-family: Arial, sans-serif;
+  background: #0695e9;
+  margin: 0;
+  padding: 20px;
+}
+
+h1 {
+  text-align: center;
+}
+
+.dafo_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 1fr 1fr;
+  gap: 10px;
+  max-width: 800px;
+  margin: auto;
+}
+
+.dafo_grid div {
+  padding: 20px;
+  background: rgb(255, 255, 255);
+  border-radius: 8px;
+}
+
+#footer {
+  width: fit-content;
+  border-radius: 5px;
+  margin: auto;
+  background-color: aliceblue;
+  width: 150px;
+  text-align: center;
+  padding: 10px;
+  text-decoration: none;
+}
+
+#footer a {
+  text-decoration: none;
+}
